@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' data: blob: https:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https:; connect-src 'self' https://generativelanguage.googleapis.com https://fonts.googleapis.com https:; frame-src 'self' data: blob: https:; object-src 'none';">
+    <title>TalentHunt AI - Intelligent AI Analysis</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <h1>TalentHunt AI</h1>
+                <div class="logo-glow"></div>
+            </div>
+            <p class="subtitle">Empowering Recruitment with Intelligent AI Analysis.</p>
+        </header>
+
+        <!-- Bulk CV Upload Section -->
+        <section class="upload-section">
+            <h2>Bulk CV Upload</h2>
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-content">
+                    <div class="upload-icon-wrapper">
+                        <svg class="upload-icon" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="17 8 12 3 7 8"></polyline>
+                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                        <div class="icon-pulse"></div>
+                    </div>
+                    <p class="upload-text">Drag and drop your CV files here</p>
+                    <p class="upload-hint">or click to browse</p>
+                    <p class="upload-formats">Supported formats: PDF, DOC, DOCX, TXT, RTF, JPG, PNG</p>
+                </div>
+                <input type="file" id="fileInput" multiple accept=".pdf,.doc,.docx,.txt,.rtf,.jpg,.jpeg,.png" hidden>
+            </div>
+            
+            <!-- Uploaded Files List -->
+            <div class="uploaded-files" id="uploadedFiles" style="display: none;">
+                <h3 class="uploaded-files-header" id="uploadedFilesHeader">
+                    <span>Uploaded Files <span class="file-count" id="fileCount"></span></span>
+                    <button class="collapse-toggle" id="collapseToggle" title="Expand/Collapse">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                </h3>
+                <div class="files-list-container" id="filesListContainer">
+                    <ul id="filesList"></ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Loading Indicator -->
+        <div class="loading-section" id="loadingSection" style="display: none;">
+            <div class="spinner"></div>
+            <p>Analyzing CVs with AI...</p>
+        </div>
+
+        <!-- Results Section -->
+        <section class="results-section" id="resultsSection" style="display: none;">
+            <div class="results-header">
+                <h2>Analysis Results</h2>
+                <div class="results-count" id="resultsCount"></div>
+            </div>
+            <div class="table-container">
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th>Candidate Name</th>
+                            <th>Rank</th>
+                            <th>Applying Role</th>
+                            <th>Skill Match %</th>
+                            <th>Highlights</th>
+                            <th>Red Flags</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resultsTableBody">
+                        <!-- Results will be populated dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <!-- CV Preview Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">CV Preview</h3>
+                <button class="modal-close" id="modalClose" title="Close Preview">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- CV preview content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
