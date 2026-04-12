@@ -15,10 +15,8 @@ const loadingSection = document.getElementById('loadingSection');
 const resultsSection = document.getElementById('resultsSection');
 const resultsTableBody = document.getElementById('resultsTableBody');
 const resultsCount = document.getElementById('resultsCount');
-const modalOverlay = document.getElementById('modalOverlay');
-const modalClose = document.getElementById('modalClose');
-const modalTitle = document.getElementById('modalTitle');
 const modalBody = document.getElementById('modalBody');
+const saveApiKeyBtn = document.getElementById('saveApiKey');
 
 // Application State
 let uploadedFilesData = [];
@@ -495,11 +493,8 @@ function extractPartialJSON(jsonText) {
  * @returns {Promise<Object>} Analysis result with name, skillMatch, redFlags
  */
 async function analyzeCV(file) {
-    const apiKey = 'AIzaSyBr7vb2gm25zRQGgL0Jw6QhyJ-BeMu2yZk';
-    // Using gemini-2.0-flash-exp (gemini-2.5-flash may not be available yet)
-    // If you have access to gemini-2.5-flash, change the model name below
-    const model = 'gemini-2.5-flash-lite';
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+    // API endpoint on our proxy backend (Vercel API Route)
+    const apiUrl = `/api/analyze`;
     
     try {
         // Convert file to base64
@@ -550,10 +545,11 @@ Guidelines:
 
 CRITICAL: Return ONLY the JSON object. No markdown. No intro/outro text.`;
 
-        console.log(`Starting API request for ${file.name} using ${model}...`);
+        console.log(`Starting Proxy API request for ${file.name}...`);
 
-        // Prepare the request
+        // Prepare the request body for our proxy
         const requestBody = {
+            model: 'gemini-2.0-flash',
             contents: [{
                 parts: [
                     { text: prompt },
@@ -574,7 +570,7 @@ CRITICAL: Return ONLY the JSON object. No markdown. No intro/outro text.`;
             }
         };
         
-        // Call Gemini API
+        // Call our local Proxy API instead of Google directly
         const response = await fetch(apiUrl, {
             method: 'POST',
             headers: {
